@@ -1,10 +1,3 @@
-/*
-作者: imsyy
-主页：https://www.imsyy.top/
-GitHub：https://github.com/imsyy/home
-版权所有，请勿删除
-*/
-
 $(function () {
     var url = "../setting.json"
     $.getJSON(
@@ -30,11 +23,6 @@ $(function () {
             localStorage.setItem('des_title', data.des_title[1]);
             localStorage.setItem('des_title_change', data.des_title_change[1]);
             /* 社交链接 */
-            $('#github').attr('href', "https://github.com/" + data.github);
-            $('#qq').attr('href', "https://wpa.qq.com/msgrd?v=3&uin=" + data.qq + "&site=qq&menu=yes");
-            $('#email').attr('href', "mailto:" + data.email);
-            $('#telegram').attr('href', "https://t.me/" + data.telegram);
-            $('#twitter').attr('href', "https://twitter.com/" + data.twitter);
             /* 天气 API */
             localStorage.setItem('weather_api', data.weather_api);
             /* 快捷链接 */
@@ -64,13 +52,11 @@ $(function () {
             $('#wallpaper_text3').html(data.wallpaper_api[2][0]);
             localStorage.setItem('wallpaper_api_3', data.wallpaper_api[2][1]);
             //页脚版权
-            $('#power-year').html(data.Copyright_year);
-            $('#power-text').html(data.Copyright_text);
         }
     )
 });
 
-// 背景图片 Cookies 
+// 背景图片 Cookies
 function setBgImg(bg_img) {
     if (bg_img) {
         Cookies.set('bg_img', bg_img, {
