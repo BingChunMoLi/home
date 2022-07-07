@@ -159,12 +159,14 @@ $('#hitokoto').click(function () {
 fetch(localStorage.getItem('weather_api'))
     .then(response => response.json())
     .then(data => {
-        $('#wea_text').html(data.wea)
-        $('#city_text').html(data.city)
-        $('#tem_night').html(data.tem_night)
-        $('#tem_day').html(data.tem_day)
-        $('#win_text').html(data.win)
-        $('#win_speed').html(data.win_speed)
+        if (data.code === 0o0000 && data.data && data.data.code === 200) {
+            $('#wea_text').html(data.data.now.text);
+            $('#city_text').html('温度:' + data.data.now.temp)
+            $('#tem_night').html('体感温度:' + data.data.now.feelsLike)
+            $('#tem_day').html('数据观测时间:' + data.data.now.obsTime)
+            $('#win_text').html(data.data.now.windDir)
+            $('#win_speed').html(data.data.now.windScale)
+        }
     })
     .catch(console.error)
 
@@ -333,12 +335,7 @@ $("#more").hover(function () {
 
 //屏蔽右键
 document.oncontextmenu = function () {
-    iziToast.show({
-        timeout: 2000,
-        icon: "fa-solid fa-circle-exclamation",
-        message: '为了浏览体验，本站禁用右键'
-    });
-    return false;
+    return true;
 }
 
 //自动变灰
@@ -378,21 +375,12 @@ color: rgb(244,167,89);
 var styleContent = `
 color: rgb(30,152,255);
 `
-var title1 = '無名の主页'
+var title1 = 'title'
 var title2 = `
- _____ __  __  _______     ____     __
-|_   _|  \\/  |/ ____\\ \\   / /\\ \\   / /
-  | | | \\  / | (___  \\ \\_/ /  \\ \\_/ / 
-  | | | |\\/| |\\___ \\  \\   /    \\   /  
- _| |_| |  | |____) |  | |      | |   
-|_____|_|  |_|_____/   |_|      |_|                                                     
+                                                
 `
 var content = `
-版 本 号：3.2
-更新日期：2022-06-28
 
-主页:  https://www.imsyy.top
-Github:  https://github.com/imsyy/home
 `
 console.log(`%c${title1} %c${title2}
 %c${content}`, styleTitle1, styleTitle2, styleContent)
