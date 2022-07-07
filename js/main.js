@@ -159,13 +159,18 @@ $('#hitokoto').click(function () {
 fetch(localStorage.getItem('weather_api'))
     .then(response => response.json())
     .then(data => {
-        if (data.code === 0o0000 && data.data && data.data.code === 200) {
-            $('#wea_text').html(data.data.now.text);
-            $('#city_text').html('温度:' + data.data.now.temp)
-            $('#tem_night').html('体感温度:' + data.data.now.feelsLike)
-            $('#tem_day').html('数据观测时间:' + data.data.now.obsTime)
-            $('#win_text').html(data.data.now.windDir)
-            $('#win_speed').html(data.data.now.windScale)
+        if (data.code == 00000 && data.data) {
+            let res = JSON.parse(data.data);
+            if (res.code == 200) {
+                $('#wea_text').html(res.now.text);
+                $('#city_text').html(res.now.windDir)
+                $('#tem_night').html(res.now.windSpeed)
+                $('#tem_day').html(res.now.temp)
+                $('#win_speed').html(res.now.windScale)
+                if(res.now.precip != 0.0){
+                    $('#win_text').html(res.now.precip)
+                }
+            }
         }
     })
     .catch(console.error)
